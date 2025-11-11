@@ -1,4 +1,4 @@
-# arXiv Paper Downloader & Converter
+# arXiv Dataset Generator
 
 Downloads academic papers from arXiv via Semantic Scholar search and converts them to Markdown.
 
