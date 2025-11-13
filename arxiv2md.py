@@ -67,6 +67,8 @@ def main():
     number_of_papers = 150                  # Max papers (1-1000)
     min_citations = 50                      # Min citation filter (0+)
     year_range = "2016-"                    # Year range: "2020-", "2018-2022", etc.
+    output_dir_pdf = "data/pdfs"            # Output directory for pdfs
+    output_dir_md = "data/md"               # Output directory for markdowns
     
     url = "http://api.semanticscholar.org/graph/v1/paper/search/bulk"
     query_params = {
@@ -91,8 +93,8 @@ def main():
     papers = [paper for paper in papers if "ArXiv" in paper.get("externalIds", {})]
     papers = papers[:min(number_of_papers, len(papers))]
     
-    os.makedirs("data/pdfs", exist_ok=True)
-    os.makedirs("data/md", exist_ok=True)
+    os.makedirs(f"{output_dir_pdf}", exist_ok=True)
+    os.makedirs(f"{output_dir_md}", exist_ok=True)
     
     # Download PDFs in parallel (8 concurrent downloads)
     downloaded_papers = []
