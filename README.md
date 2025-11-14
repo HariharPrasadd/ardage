@@ -72,7 +72,7 @@ Search for papers via Semantic Scholar API.
 - `year_range` (str): Year range in format "YYYY-" or "YYYY-YYYY" (default: "2016-")
 
 **Returns:**
-- `list`: Paper metadata dictionaries sorted by citation count, filtered for arXiv availability
+- `list`: Relevant arXiv paper ids sorted by citation count
 
 **Example:**
 ```python
