@@ -62,10 +62,11 @@ def main():
         epilog="""
 Examples:
   ardage                                      # Interactive mode
-  ardage -q "machine learning" -n 100         # Quick download
+  ardage -q "machine learning" -n 100         # Quick download (to data/pdfs and data/md)
   ardage -q "transformers" -n 50 -c 100 -y "2020-2023"
-  ardage -q "computer vision" -o my_papers    # Custom output directory
+  ardage -q "computer vision" -o my_papers    # Outputs to my_papers/pdfs and my_papers/md
   ardage -q "deep learning" --delete-pdfs     # Delete PDFs after conversion
+  ardage -q "NLP" --pdf-dir my_pdfs --md-dir my_markdown  # Exact paths
         """
     )
     
@@ -73,7 +74,9 @@ Examples:
     parser.add_argument('-n', '--num-papers', type=int, help='Number of papers (default: 150)')
     parser.add_argument('-c', '--min-citations', type=int, help='Minimum citations (default: 50)')
     parser.add_argument('-y', '--year-range', help='Year range, e.g., "2020-" or "2018-2022" (default: "2016-")')
-    parser.add_argument('-o', '--output-dir', default='data', help='Output directory (default: data)')
+    parser.add_argument('-o', '--output-dir', default='data', help='Base output directory (default: data)')
+    parser.add_argument('--pdf-dir', help='PDF output directory (default: data/pdfs)')
+    parser.add_argument('--md-dir', help='Markdown output directory (default: data/md)')
     parser.add_argument('-w', '--workers', type=int, default=8, help='Download workers (default: 8)')
     parser.add_argument('-p', '--processors', type=int, default=4, help='Conversion processors (default: 4)')
     parser.add_argument('-t', '--timeout', type=int, default=120, help='Conversion timeout in seconds (default: 120)')
@@ -101,10 +104,18 @@ Examples:
     
     print(f"Found {len(papers)} papers on arXiv\n")
     
-    # Download
-    pdf_dir = f"{args.output_dir}/pdfs"
-    md_dir = f"{args.output_dir}/md"
+    # Determine output directories - use exact paths if specified
+    if args.pdf_dir:
+        pdf_dir = args.pdf_dir
+    else:
+        pdf_dir = f"{args.output_dir}/pdfs"
     
+    if args.md_dir:
+        md_dir = args.md_dir
+    else:
+        md_dir = f"{args.output_dir}/md"
+    
+    # Download
     downloaded = download_papers(papers, pdf_dir, args.workers, show_progress=True)
     print(f"\nDownloaded {len(downloaded)} papers")
     

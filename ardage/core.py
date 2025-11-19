@@ -189,7 +189,8 @@ def convert_papers(paper_ids, pdf_dir="data/pdfs", md_dir="data/md",
 
 
 def download_and_convert(query, num_papers=150, min_citations=50, year_range="2016-",
-                        output_dir="data", download_workers=8, conversion_workers=4,
+                        output_dir="data", pdf_dir=None, md_dir=None,
+                        download_workers=8, conversion_workers=4,
                         conversion_timeout=120, show_progress=True, keep_pdfs=True):
     """
     All-in-one function: search, download, and convert papers
@@ -199,7 +200,9 @@ def download_and_convert(query, num_papers=150, min_citations=50, year_range="20
         num_papers: Maximum number of papers (default: 150)
         min_citations: Minimum citation filter (default: 50)
         year_range: Year range like "2020-" or "2018-2022" (default: "2016-")
-        output_dir: Base output directory (default: "data")
+        output_dir: Base output directory, only used if pdf_dir/md_dir not specified (default: "data")
+        pdf_dir: PDF output directory - exact path (default: None, uses <output_dir>/pdfs)
+        md_dir: Markdown output directory - exact path (default: None, uses <output_dir>/md)
         download_workers: Concurrent downloads (default: 8)
         conversion_workers: Concurrent conversions (default: 4)
         conversion_timeout: Timeout per conversion in seconds (default: 120)
@@ -212,8 +215,11 @@ def download_and_convert(query, num_papers=150, min_citations=50, year_range="20
             - 'downloaded': List of downloaded paper IDs
             - 'converted': List of converted paper IDs
     """
-    pdf_dir = f"{output_dir}/pdfs"
-    md_dir = f"{output_dir}/md"
+    # Use exact paths if specified, otherwise use output_dir structure
+    if pdf_dir is None:
+        pdf_dir = f"{output_dir}/pdfs"
+    if md_dir is None:
+        md_dir = f"{output_dir}/md"
     
     # Search
     if show_progress:
