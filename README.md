@@ -60,6 +60,26 @@ converted = convert_papers(
 print(f"Successfully converted {len(converted)} papers")
 ```
 
+**Or use the all-in-one function:**
+
+```python
+from ardage import download_and_convert
+
+# Complete pipeline in one call
+result = download_and_convert(
+    query="machine learning",
+    num_papers=100,
+    min_citations=50,
+    year_range="2020-",
+    pdf_dir="my_pdfs",
+    md_dir="my_markdown",
+    keep_pdfs=False  # Delete PDFs after conversion
+)
+
+print(f"Downloaded: {len(result['downloaded'])}")
+print(f"Converted: {len(result['converted'])}")
+```
+
 ## API Reference
 
 ### Core Functions
