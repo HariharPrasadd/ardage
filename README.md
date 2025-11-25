@@ -4,7 +4,7 @@
 
 Search papers via Semantic Scholar, download PDFs from arXiv, and convert to clean Markdown format suitable for LLM training, RAG systems, or research analysis.
 
-https://github.com/user-attachments/assets/3bfc49ee-76e0-4466-8198-a303dbb33785
+https://github.com/user-attachments/assets/64dfea84-a89f-40ce-bd26-0383019f7e58
 
 ## Installation
 
