@@ -4,7 +4,7 @@
 
 Search papers via Semantic Scholar, download PDFs from arXiv, and convert to clean Markdown format suitable for LLM training, RAG systems, or research analysis.
 
-<video src="scratch/ardage_cli_compressed.mov" controls width="600">
+<video src="scratch/ardage_demo.mp4" controls width="600">
 </video>
 
 ## Installation
